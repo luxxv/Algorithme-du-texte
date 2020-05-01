@@ -10,3 +10,4 @@ class IndexInverse:
         self.m = mot                                                      #index.mot >>> 'lipn'
         self.nbU = nbUrl                                                  #index.nbUrl >>> 6
         self.page = page
+#bien fait
