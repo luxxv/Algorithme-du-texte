@@ -98,3 +98,16 @@ def TF_IDF(mot, document, monRepertoire):
 def BM_25(mot, document, monRepertoire,k1):
     b=0.75
     resultat = idf(mot, document, monRepertoire)*((ftd(mot, document)*(k1+1))/(ftd(mot, document)+(k1*(1-b+(b*longueurDoc(document)/avgdl(monRepertoire))))))
+
+
+#une fonction recherche qui prend en entrée séquence de mots-clés et qui renvoie les 10 premières pages qui maximisent le score pour ces mots clés
+def recherche(mots):
+    c=0 #on initialise le compteur
+    k1=2 #on initialise la valeur de K appartient à [1.2,2.0] pour la formule BM 25
+    #tab=[]
+    for f in listdir(monRepertoire): #parcourir chaque fichier du répertoire (notre collection)
+        valeur=BM_25(mots, f, monRepertoire,k1) #on calcule le score
+        tab[c] = [(valeur,f)] #le score obtenu est stocké dans un tableau, couple de valeur et page associé
+        c+=1 #compteur qui sert d'indice pour notre tableau
+    maximisation = tab.sort(reverse=True) #on tri dans l'ordre décroissant les valeurs du tableau avec sort + reverse = true, en fonction de la première colonne
+    return maximisation[:10] #retourner les 10 premières cases du tableau représentant les 10 premières pages qui maximisent le score
