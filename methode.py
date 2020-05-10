@@ -51,7 +51,7 @@ def avgdl(monRepertoire):                                      #A FINIR
         file.close() #fermeture du fichier
         adl=adl+len(liste)
         #print(" Fichier =",fichier)
-    print(adl/c)
+    #print(adl/c)
     return adl/c
 
     #doc = open(document,'r') #ouverture et lecture du fichier choisi
