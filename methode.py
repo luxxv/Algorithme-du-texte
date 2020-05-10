@@ -1,3 +1,7 @@
+from os import listdir #importation bibliothèque lecture fichier et répertoire
+import os
+import math
+import re
 #import indexe_inverse
 # Charger les documents dans l'index
 # La méthode doit parcourir les documents d'un répertoire passer en entrée.
@@ -51,7 +55,7 @@ def avgdl(monRepertoire):                                      #A FINIR
         file.close() #fermeture du fichier
         adl=adl+len(liste)
         #print(" Fichier =",fichier)
-    #print(adl/c)
+    
     return adl/c
 
     #doc = open(document,'r') #ouverture et lecture du fichier choisi
@@ -62,13 +66,15 @@ def avgdl(monRepertoire):                                      #A FINIR
 
 def ftd(mot, document):
     file = open(document,'r') #ouverture et lecture du fichier choisi
-    rd = file.read() #chargement du fichier dan sune variable
-    liste = re.findall(r'\w+', rd) #chaque token est chargé dans une liste
-    nbterme = len(cherche_occurrences(rd,mot)) #variable qui va stocker l'entier correspondant à l'équivalence FREQUENCE BRUTE
-    file.close()
-    print("nombre de terme :",nbterme)
-    return nbterme
-
+    try:
+        rd = file.read() #chargement du fichier dan sune variable
+        liste = re.findall(r'\w+', rd) #chaque token est chargé dans une liste
+        nbterme = len(cherche_occurrences(rd,mot)) #variable qui va stocker l'entier correspondant à l'équivalence FREQUENCE BRUTE
+        file.close()
+        print("nombre de terme :",nbterme)
+        return nbterme
+    except UnicodeDecodeError:
+        return 1
 def chargerIndex(monRepertoire):
     fichiers = [f for f in listdir(monRepertoire)] # les fichiers du répertoire sont chargés
     # print(fichiers) #L'affichage est optionnel
@@ -81,13 +87,16 @@ def chargerIndex(monRepertoire):
 #terme="Lyon" #terme que nous voulons compter dans un fichier
 def tf(mot, document, monRepertoire):
     doc = open(document,'r') #ouverture et lecture du fichier choisi
-    rd = file.read() #chargement du fichier dansune variable
-    liste = re.findall(r'\w+', file) #chaque token est chargé dans une liste
-    nbtokendoc = len(liste)
-    nbterme = len(cherche_occurrences(document,mot))#variable qui va stocker l'entier correspondant à l'équivalence FREQUENCE BRUTE
-    document.close() #fermeture du fichier
-    TF = nbterme / nbtokendoc #ce qui nous mène à coder la formule associé à Term Frequency
-    return TF
+    try :
+        rd = file.read() #chargement du fichier dansune variable
+        liste = re.findall(r'\w+', file) #chaque token est chargé dans une liste
+        nbtokendoc = len(liste)
+        nbterme = len(cherche_occurrences(document,mot))#variable qui va stocker l'entier correspondant à l'équivalence FREQUENCE BRUTE
+        document.close() #fermeture du fichier
+        TF = nbterme / nbtokendoc #ce qui nous mène à coder la formule associé à Term Frequency
+        return TF
+    except UnicodeDecodeError:
+        return 1
 
 #INVERSE DOCUMENT FREQUENCY IDF; mot et une collection de documents
 def idf(mot, document, monRepertoire):
