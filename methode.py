@@ -29,11 +29,14 @@ def cherche_occurrences(texte, mot):
 #Retourne le nombre de mots dans un document choisi, donc sa longueur
 def longueurDoc(document):
     file = open(document,'r') #ouverture et lecture du fichier choisi
-    rd = file.read() #chargement du fichier dans une variable
-    liste = re.findall(r'\w+', rd) #chaque token est chargé dans une liste
-    nbtokendoc = len(liste)
-    file.close() #fermeture du fichier
-    return nbtokendoc
+    try :
+        rd = file.read() #chargement du fichier dans une variable
+        liste = re.findall(r'\w+', rd) #chaque token est chargé dans une liste
+        nbtokendoc = len(liste)
+        file.close() #fermeture du fichier
+        return nbtokendoc
+    except UnicodeDecodeError:
+        return 0
 
 #Average Document Length,  la longueur moyenne des documents de la collection
 def avgdl(monRepertoire):                                      #A FINIR
